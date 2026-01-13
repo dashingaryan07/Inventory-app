@@ -1,0 +1,42 @@
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Node
+node_modules
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+
+# Build outputs
+dist
+build
+.next
+out
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Testing
+coverage
+.nyc_output
+jest.config.js
+
+# Backend specific
+src/config/.env
+.env.production
+
+# Frontend specific
+inventory-saas-frontend/dist
+inventory-saas-frontend/build
+inventory-saas-frontend/.env.local
+
+# Backend specific
+inventory-saas-backend/node_modules
+inventory-saas-backend/dist

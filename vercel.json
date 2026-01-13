@@ -1,0 +1,5 @@
+{
+  "version": 2,
+  "buildCommand": "cd inventory-saas-frontend && npm run build",
+  "outputDirectory": "inventory-saas-frontend/dist"
+}
