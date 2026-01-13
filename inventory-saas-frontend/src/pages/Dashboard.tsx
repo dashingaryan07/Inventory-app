@@ -26,7 +26,7 @@ const Dashboard = () => {
         setError(null);
 
         // Fetch stats
-        let statsData = {};
+        let statsData: any = {};
         let lowStockData: any[] = [];
         try {
           const statsRes = await dashboardAPI.getStats();
@@ -61,36 +61,36 @@ const Dashboard = () => {
         const statsArray = [
           {
             title: "Total Products",
-            value: statsData.totalProducts?.value || 0,
-            change: statsData.totalProducts?.change || "",
-            isPositive: statsData.totalProducts?.isPositive !== false,
+            value: statsData?.totalProducts?.value || 0,
+            change: statsData?.totalProducts?.change || "",
+            isPositive: statsData?.totalProducts?.isPositive !== false,
             icon: Package,
             bgColor: "bg-blue-50",
             textColor: "text-blue-600",
           },
           {
             title: "Low Stock Items",
-            value: statsData.lowStockItems?.value || 0,
-            change: statsData.lowStockItems?.change || "",
-            isPositive: statsData.lowStockItems?.isPositive !== false,
+            value: statsData?.lowStockItems?.value || 0,
+            change: statsData?.lowStockItems?.change || "",
+            isPositive: statsData?.lowStockItems?.isPositive !== false,
             icon: AlertTriangle,
             bgColor: "bg-orange-50",
             textColor: "text-orange-600",
           },
           {
             title: "Total Inventory Value",
-            value: `$${statsData.totalInventoryValue?.value || 0}`,
-            change: statsData.totalInventoryValue?.change || "",
-            isPositive: statsData.totalInventoryValue?.isPositive !== false,
+            value: `$${statsData?.totalInventoryValue?.value || 0}`,
+            change: statsData?.totalInventoryValue?.change || "",
+            isPositive: statsData?.totalInventoryValue?.isPositive !== false,
             icon: DollarSign,
             bgColor: "bg-green-50",
             textColor: "text-green-600",
           },
           {
             title: "Orders This Month",
-            value: statsData.ordersThisMonth?.value || 0,
-            change: statsData.ordersThisMonth?.change || "",
-            isPositive: statsData.ordersThisMonth?.isPositive !== false,
+            value: statsData?.ordersThisMonth?.value || 0,
+            change: statsData?.ordersThisMonth?.change || "",
+            isPositive: statsData?.ordersThisMonth?.isPositive !== false,
             icon: TrendingUp,
             bgColor: "bg-purple-50",
             textColor: "text-purple-600",

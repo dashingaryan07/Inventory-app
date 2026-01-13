@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ShoppingCart, Plus, Eye, Trash2, X } from "lucide-react";
+import { ShoppingCart, Plus, Trash2, X } from "lucide-react";
 import { ordersAPI, productsAPI } from "../utils/api";
 import { useSocket } from "../context/SocketContext";
 import { useToast, ToastContainer } from "../components/Toast";
@@ -49,8 +49,6 @@ export default function Orders() {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [showAddModal, setShowAddModal] = useState(false);
-  const [showDetailModal, setShowDetailModal] = useState(false);
-  const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
   const { socket } = useSocket();
   const { toasts, addToast, removeToast } = useToast();
   const [formData, setFormData] = useState({
@@ -268,15 +266,6 @@ export default function Orders() {
                   </p>
                 </div>
                 <div className="flex gap-2">
-                  <button
-                    onClick={() => {
-                      setSelectedOrder(order);
-                      setShowDetailModal(true);
-                    }}
-                    className="p-2 hover:bg-blue-50 rounded-lg"
-                  >
-                    <Eye size={18} className="text-blue-600" />
-                  </button>
                   {order.status === "pending" && (
                     <button
                       onClick={() => handleDelete(order._id)}

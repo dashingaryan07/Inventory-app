@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { CheckCircle, AlertCircle, Trash2 } from "lucide-react";
 
 interface Toast {

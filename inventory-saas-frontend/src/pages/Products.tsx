@@ -47,7 +47,7 @@ const Products = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [categories, setCategories] = useState<string[]>(["all"]);
-  const { socket, isConnected } = useSocket();
+  const { socket } = useSocket();
   const { toasts, addToast, removeToast } = useToast();
   const [formData, setFormData] = useState({
     name: "",
@@ -80,7 +80,7 @@ const Products = () => {
         const uniqueCategories = Array.from(
           new Set(productList.map((p: any) => p.category).filter(Boolean))
         );
-        setCategories(["all", ...uniqueCategories]);
+        setCategories(["all", ...uniqueCategories] as string[]);
       } catch (err: any) {
         console.error("Error loading products:", err);
         setError(err.message || "Failed to load products");
@@ -107,7 +107,7 @@ const Products = () => {
     socket.on("product-updated", (data) => {
       console.log("Product updated:", data);
       setProducts((prev) =>
-        prev.map((p) => (p._id === data.product._id ? data.product : p))
+        prev.map((p) => (((p as any)._id || p.id) === ((data.product as any)._id || data.product.id) ? data.product : p))
       );
       addToast(data.message, "success");
     });
@@ -115,7 +115,7 @@ const Products = () => {
     // Listen for product deleted
     socket.on("product-deleted", (data) => {
       console.log("Product deleted:", data);
-      setProducts((prev) => prev.filter((p) => p._id !== data.productId));
+      setProducts((prev) => prev.filter((p) => ((p as any)._id || p.id) !== data.productId));
       addToast(data.message, "success");
     });
 
@@ -230,7 +230,7 @@ const Products = () => {
 
   const handleEditClick = (product: Product) => {
     console.log("Edit clicked for product:", product);
-    setEditingProductId(product._id || product.id);
+    setEditingProductId((product as any)._id || product.id);
     setFormData({
       name: product.name,
       category: product.category,
@@ -291,7 +291,7 @@ const Products = () => {
       if (res.data?.data) {
         setProducts(
           products.map((p) =>
-            (p._id || p.id) === editingProductId ? res.data.data : p
+            ((p as any)._id || p.id) === editingProductId ? res.data.data : p
           )
         );
       }
@@ -507,7 +507,7 @@ const Products = () => {
                         <button
                           className="p-2 hover:bg-red-50 rounded-lg transition-colors"
                           onClick={() =>
-                            handleDelete(product._id || product.id)
+                            handleDelete((product as any)._id || product.id)
                           }
                         >
                           <Trash2 size={18} className="text-red-600" />
@@ -850,7 +850,7 @@ const Products = () => {
 
                       {variants.length > 0 && (
                         <div className="bg-gray-50 rounded-lg p-3 max-h-40 overflow-y-auto">
-                          {variants.map((variant, idx) => (
+                          {variants.map((variant) => (
                             <div
                               key={variant.id}
                               className="flex items-center justify-between text-sm mb-2 pb-2 border-b last:border-b-0"
@@ -1149,7 +1149,7 @@ const Products = () => {
 
                       {variants.length > 0 && (
                         <div className="bg-gray-50 rounded-lg p-3 max-h-40 overflow-y-auto">
-                          {variants.map((variant, idx) => (
+                          {variants.map((variant) => (
                             <div
                               key={variant.id}
                               className="flex items-center justify-between text-sm mb-2 pb-2 border-b last:border-b-0"
