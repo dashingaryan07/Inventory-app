@@ -1,12 +1,9 @@
 {
-  "buildCommand": "npm run build",
-  "outputDirectory": "dist",
-  "cleanUrls": true,
-  "trailingSlash": false,
   "rewrites": [
     {
-      "source": "/((?!api).*)",
-      "destination": "/index.html"
-    }
+      "source": "/api/:path*",
+      "destination": "https://inventory-app-production-8224.up.railway.app/api/:path*"
+    },
+    { "source": "/:path*", "destination": "/index.html" }
   ]
 }
