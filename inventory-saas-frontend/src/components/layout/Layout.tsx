@@ -1,6 +1,6 @@
-import type { ReactNode } from 'react';
-import Sidebar from './Sidebar';
-import Header from './Header';
+import type { ReactNode } from "react";
+import Sidebar from "./Sidebar";
+import Header from "./Header";
 
 interface LayoutProps {
   children: ReactNode;
@@ -12,9 +12,7 @@ const Layout = ({ children }: LayoutProps) => {
       <Sidebar />
       <div className="flex-1 ml-64 flex flex-col">
         <Header />
-        <main className="flex-1 overflow-y-auto p-6">
-          {children}
-        </main>
+        <main className="flex-1 overflow-y-auto p-6">{children}</main>
       </div>
     </div>
   );

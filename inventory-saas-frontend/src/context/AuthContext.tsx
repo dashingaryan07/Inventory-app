@@ -1,12 +1,12 @@
-import { createContext, useContext, useState, useEffect } from 'react';
-import type { ReactNode } from 'react';
-import { authAPI } from '../utils/api';
+import { createContext, useContext, useState, useEffect } from "react";
+import type { ReactNode } from "react";
+import { authAPI } from "../utils/api";
 
 interface User {
   id: string;
   name: string;
   email: string;
-  role: 'Owner' | 'Manager' | 'Staff';
+  role: "Owner" | "Manager" | "Staff";
   tenantId: string;
 }
 
@@ -35,9 +35,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   // Check for existing token on mount
   useEffect(() => {
     const checkAuth = async () => {
-      const token = localStorage.getItem('token');
-      const storedUser = localStorage.getItem('user');
-      const storedTenant = localStorage.getItem('tenant');
+      const token = localStorage.getItem("token");
+      const storedUser = localStorage.getItem("user");
+      const storedTenant = localStorage.getItem("tenant");
 
       if (token && storedUser && storedTenant) {
         try {
@@ -47,9 +47,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           setTenant(response.data.tenant);
         } catch (error) {
           // Token invalid, clear storage
-          localStorage.removeItem('token');
-          localStorage.removeItem('user');
-          localStorage.removeItem('tenant');
+          localStorage.removeItem("token");
+          localStorage.removeItem("user");
+          localStorage.removeItem("tenant");
         }
       }
       setIsLoading(false);
@@ -64,24 +64,24 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       const { token, user: userData, tenant: tenantData } = response.data;
 
       // Store in localStorage
-      localStorage.setItem('token', token);
-      localStorage.setItem('user', JSON.stringify(userData));
-      localStorage.setItem('tenant', JSON.stringify(tenantData));
+      localStorage.setItem("token", token);
+      localStorage.setItem("user", JSON.stringify(userData));
+      localStorage.setItem("tenant", JSON.stringify(tenantData));
 
       // Update state
       setUser(userData);
       setTenant(tenantData);
     } catch (error: any) {
-      throw new Error(error.response?.data?.message || 'Login failed');
+      throw new Error(error.response?.data?.message || "Login failed");
     }
   };
 
   const logout = () => {
     setUser(null);
     setTenant(null);
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    localStorage.removeItem('tenant');
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    localStorage.removeItem("tenant");
   };
 
   return (
@@ -92,7 +92,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         login,
         logout,
         isAuthenticated: !!user && !!tenant,
-        isLoading
+        isLoading,
       }}
     >
       {children}
@@ -103,7 +103,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (context === undefined) {
-    throw new Error('useAuth must be used within an AuthProvider');
+    throw new Error("useAuth must be used within an AuthProvider");
   }
   return context;
 };

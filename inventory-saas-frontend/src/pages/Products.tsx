@@ -107,7 +107,12 @@ const Products = () => {
     socket.on("product-updated", (data) => {
       console.log("Product updated:", data);
       setProducts((prev) =>
-        prev.map((p) => (((p as any)._id || p.id) === ((data.product as any)._id || data.product.id) ? data.product : p))
+        prev.map((p) =>
+          ((p as any)._id || p.id) ===
+          ((data.product as any)._id || data.product.id)
+            ? data.product
+            : p
+        )
       );
       addToast(data.message, "success");
     });
@@ -115,7 +120,9 @@ const Products = () => {
     // Listen for product deleted
     socket.on("product-deleted", (data) => {
       console.log("Product deleted:", data);
-      setProducts((prev) => prev.filter((p) => ((p as any)._id || p.id) !== data.productId));
+      setProducts((prev) =>
+        prev.filter((p) => ((p as any)._id || p.id) !== data.productId)
+      );
       addToast(data.message, "success");
     });
 
